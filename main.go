@@ -18,7 +18,7 @@ import "fmt"
 // 	fmt.Println("All services:")
 // }
 
-// task 1
+//! task 1
 
 // func main() {
 // 	credentials := make(map[string]string)
@@ -71,18 +71,148 @@ import "fmt"
 
 //! task 3
 
-type Target struct {
-	IP           string
-	Port         int
-	IsVulnerable bool
+// type Target struct {
+// 	IP           string
+// 	Port         int
+// 	IsVulnerable bool
+// }
+
+// func main() {
+// 	target1 := Target{
+// 		IP:           "192.168.1.5",
+// 		Port:         22,
+// 		IsVulnerable: true,
+// 	}
+
+// 	fmt.Printf("IP: %s, Port: %d IsVulnerable: %t", target1.IP, target1.Port, target1.IsVulnerable)
+// }
+
+// type Target struct {
+// 	IP   string
+// 	Port int
+// }
+
+// func (t Target) Ping() {
+// 	fmt.Printf("Sending packets to %s on port %d....\n", t.IP, t.Port)
+// }
+
+// func main() {
+// 	server := Target{IP: "10.0.0.1", Port: 80}
+// 	server.Ping()
+// }
+
+//! task 4
+
+// type Hacker struct {
+// 	Codename string
+// 	level    int
+// 	IsActive bool
+// }
+
+// type Target struct {
+// 	IP           string
+// 	Port         int
+// 	IsVulnerable bool
+// }
+
+// func (t Target) Exploit() {
+// 	if t.IsVulnerable == true {
+// 		fmt.Printf("Success! Hacked into IP %s", t.IP)
+// 	} else {
+// 		fmt.Printf("Failed! IP: %s is secure.", t.IP)
+// 	}
+// }
+
+// func main() {
+// 	target1 := Target{
+// 		IP:           "192.168.1.5",
+// 		Port:         22,
+// 		IsVulnerable: false,
+// 	}
+
+// 	target1.Exploit()
+// }
+
+// func main() {
+// 	var name string = "Arafat"
+// 	var age int = 22
+// 	var height float64 = 5.7
+// 	var isStudent bool = true
+
+// 	// short declaration
+// 	country := "Bangladesh"
+// 	salary := 45000
+
+// 	fmt.Println("Name:", name)
+// 	fmt.Println("Age:", age)
+// 	fmt.Println("Height:", height)
+// 	fmt.Println("Country:", country)
+// 	fmt.Println("Salary:", salary)
+// 	fmt.Println("Student:", isStudent)
+// }
+
+// type Scanner interface {
+// 	Scan()
+// }
+
+// type WebScanner struct {
+// 	URL string
+// }
+
+// type PortScanner struct {
+// 	IP string
+// }
+
+// func (w WebScanner) Scan() {
+// 	fmt.Printf("Scanning website vulnerabilities for: %s\n", w.URL)
+// }
+
+// func (p PortScanner) Scan() {
+// 	fmt.Printf("Scanning open ports for IP: %s\n", p.IP)
+// }
+
+// func startAttack(s Scanner) {
+// 	s.Scan()
+// }
+
+// func main() {
+// 	target1 := WebScanner{URL: "http://vuln-site.com"}
+// 	target2 := PortScanner{IP: "192.168.1.100"}
+
+// 	startAttack(target1)
+// 	startAttack(target2)
+// }
+
+//! task 5
+
+type Payload interface {
+	Execute()
+}
+
+type SQLInjection struct {
+	TargetDB string
+}
+
+type Ransomware struct {
+	TargetFolder string
+}
+
+func (s SQLInjection) Execute() {
+	fmt.Printf("[!] Extracting admin passwords from database: %s\n", s.TargetDB)
+}
+
+func (t Ransomware) Execute() {
+	fmt.Printf("Encrypting all files in folder: %s\n", t.TargetFolder)
+}
+
+func deployPayload(P Payload) {
+	P.Execute()
 }
 
 func main() {
-	target1 := Target{
-		IP:           "192.168.1.5",
-		Port:         22,
-		IsVulnerable: true,
-	}
+	tDB := SQLInjection{TargetDB: "myShop"}
+	targetF := Ransomware{TargetFolder: "user"}
 
-	fmt.Printf("IP: %s, Port: %d IsVulnerable: %t", target1.IP, target1.Port, target1.IsVulnerable)
+	deployPayload(tDB)
+	deployPayload(targetF)
 }

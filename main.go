@@ -1,8 +1,8 @@
 package main
 
 import (
-	"errors"
 	"fmt"
+	"time"
 )
 
 // func main() {
@@ -238,22 +238,59 @@ import (
 // 	fmt.Println("[SUCCESS:]", message)
 // }
 
-func loginUser(user string, pass string) (bool, error) {
-	if user == "admin" && pass == "admin" {
-		return true, nil
-	}
-	return false, errors.New("Access Denied! Invalid credentials.")
+// func loginUser(user string, pass string) (bool, error) {
+// 	if user == "admin" && pass == "admin" {
+// 		return true, nil
+// 	}
+// 	return false, errors.New("Access Denied! Invalid credentials.")
+// }
+
+// func main() {
+// 	const userName string = "admin"
+// 	const password string = "admin1"
+
+// 	message, err := loginUser(userName, password)
+
+// 	if err != nil {
+// 		fmt.Println("Error:", err)
+// 		return
+// 	}
+// 	fmt.Println("Success:", message)
+// }
+
+//? defer
+
+// func stealData() {
+// 	fmt.Println("[1] Connecting to target server...")
+
+// 	// defer
+// 	defer fmt.Println("[3] Disconnecting and clearing tracks...")
+
+// 	fmt.Println("[2] Downloading secret files...")
+// }
+
+// func main() {
+// 	stealData()
+// }
+
+// func readSecretFile() {
+// 	fmt.Println("[+] File opened: passwords.txt")
+// 	defer fmt.Println("[-] File closed safely.")
+// 	fmt.Println("[!] Extracting hashes: admin:21232f297a57a5a743894a0e4a801fc3")
+// }
+
+// func main(){
+// 	readSecretFile()
+// }
+
+func attackTarget(target string) {
+	fmt.Println("[*] Attacking:", target)
 }
 
 func main() {
-	const userName string = "admin"
-	const password string = "admin1"
+	go attackTarget("Server 1")
+	go attackTarget("Server 2")
 
-	message, err := loginUser(userName, password)
-
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-	fmt.Println("Success:", message)
+	time.Sleep(1 * time.Second)
+	fmt.Println("Attack complete!")
 }

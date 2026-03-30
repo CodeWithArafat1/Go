@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // func main() {
 // 	var a = 10 | 20
@@ -185,34 +188,72 @@ import "fmt"
 
 //! task 5
 
-type Payload interface {
-	Execute()
-}
+// type Payload interface {
+// 	Execute()
+// }
 
-type SQLInjection struct {
-	TargetDB string
-}
+// type SQLInjection struct {
+// 	TargetDB string
+// }
 
-type Ransomware struct {
-	TargetFolder string
-}
+// type Ransomware struct {
+// 	TargetFolder string
+// }
 
-func (s SQLInjection) Execute() {
-	fmt.Printf("[!] Extracting admin passwords from database: %s\n", s.TargetDB)
-}
+// func (s SQLInjection) Execute() {
+// 	fmt.Printf("[!] Extracting admin passwords from database: %s\n", s.TargetDB)
+// }
 
-func (t Ransomware) Execute() {
-	fmt.Printf("Encrypting all files in folder: %s\n", t.TargetFolder)
-}
+// func (t Ransomware) Execute() {
+// 	fmt.Printf("Encrypting all files in folder: %s\n", t.TargetFolder)
+// }
 
-func deployPayload(P Payload) {
-	P.Execute()
+// func deployPayload(P Payload) {
+// 	P.Execute()
+// }
+
+// func main() {
+// 	tDB := SQLInjection{TargetDB: "myShop"}
+// 	targetF := Ransomware{TargetFolder: "user"}
+
+// 	deployPayload(tDB)
+// 	deployPayload(targetF)
+// }
+
+//? error handel
+// func connectServer(ip string) (string, error) {
+// 	if ip == "192.168.1.1" {
+// 		return "Connected successfully", nil
+// 	}
+// 	return "", errors.New("Connection Failed! Target is offline")
+// }
+
+// func main() {
+// 	message, err := connectServer("192.168.1.1")
+
+// 	if err != nil {
+// 		fmt.Println("[ERROR]:", err)
+// 		return
+// 	}
+// 	fmt.Println("[SUCCESS:]", message)
+// }
+
+func loginUser(user string, pass string) (bool, error) {
+	if user == "admin" && pass == "admin" {
+		return true, nil
+	}
+	return false, errors.New("Access Denied! Invalid credentials.")
 }
 
 func main() {
-	tDB := SQLInjection{TargetDB: "myShop"}
-	targetF := Ransomware{TargetFolder: "user"}
+	const userName string = "admin"
+	const password string = "admin1"
 
-	deployPayload(tDB)
-	deployPayload(targetF)
+	message, err := loginUser(userName, password)
+
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	fmt.Println("Success:", message)
 }

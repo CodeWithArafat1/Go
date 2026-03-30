@@ -283,14 +283,14 @@ import (
 // 	readSecretFile()
 // }
 
-func attackTarget(target string) {
-	fmt.Println("[*] Attacking:", target)
-}
+// func attackTarget(target string) {
+// 	fmt.Println("[*] Attacking:", target)
+// }
 
-func main() {
-	go attackTarget("Server 1")
-	go attackTarget("Server 2")
+// func main() {
+// 	go attackTarget("Server 1")
+// 	go attackTarget("Server 2")
 
-	time.Sleep(1 * time.Second)
-	fmt.Println("Attack complete!")
-}
+// 	time.Sleep(1 * time.Second)
+// 	fmt.Println("Attack complete!")
+// }

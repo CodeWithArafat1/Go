@@ -294,3 +294,21 @@ import (
 // 	time.Sleep(1 * time.Second)
 // 	fmt.Println("Attack complete!")
 // }
+
+func checkPort(port int) {
+	fmt.Printf("Checking port.... %d\n", port)
+	time.Sleep(1 * time.Second)
+	if port == 4 {
+		fmt.Printf("Port is open: %d\n", port)
+		return
+	}
+}
+
+func main() {
+	fmt.Println("Starting concurrent scan...")
+	for i := 0; i <= 5; i++ {
+		go checkPort(i)
+	}
+	time.Sleep(1 * time.Second)
+	fmt.Println("Scan finished!")
+}
